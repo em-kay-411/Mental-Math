@@ -43,7 +43,7 @@ function checkAnswer(answer) {
     console.log(`Comparing ${correctAnswer} & ${answer}`)
     // console.log(correctAnswer);
     if (answer === correctAnswer) {
-        score++;    
+        score++;
     } else {
         score = score - 2;
     }
@@ -66,7 +66,7 @@ function displayScore() {
     answerInput.disabled = true;
 }
 
-function updateTimer() {
+function updateTimer(score) {
     const seconds = timeLeft;
     timerElement.textContent = `${seconds}`;
     timeLeft--;
@@ -74,11 +74,11 @@ function updateTimer() {
     if (timeLeft < 0) {
         clearInterval(timerInterval);
         // redirect to the result page
-        window.location.href = '/result';
+        window.location.href = `/result/${score}`;
     }
 }
 
-
+// MAIN
 questions = generateQuestions(difficulty);
 console.log(questions);
 displayQuestion(questions[0]);
@@ -91,13 +91,6 @@ answerInput.addEventListener('input', (event) => {
     }
 });
 
-// answerForm.addEventListener('submit', (event) => {
-//     event.preventDefault();
-//     const answer = answerInput.value.trim();
-//     if (answer !== '') {
-//         checkAnswer(answer);
-//     }
-// });
-
-
-const timerInterval = setInterval(updateTimer, 1000);
+const timerInterval = setInterval(() => {
+    updateTimer(score);
+}, 1000);

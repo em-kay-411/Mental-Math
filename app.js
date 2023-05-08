@@ -26,6 +26,12 @@ app.post('/play', (req, res) => {
     res.render('play', {difficulty, duration});
 });
 
+app.get('/result/:score', (req, res) => {
+    const score = req.params.score;
+
+    res.render('result', {score});
+})
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
