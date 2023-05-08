@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Calculation Game</title>
+  <link rel="stylesheet" href="/css/styleIndex.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Game</h1>
+    <h3>Choose your settings</h3>
+    <form action="/play" method="post">
+      <label for="difficulty">Difficulty</label>
+      <select name="difficulty" id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+        <option value="expert">Expert</option>
+      </select>
+      <label for="duration">Duration</label>
+      <select name="duration" id="duration">
+        <option value="dur30">30</option>
+        <option value="dur60">60</option>
+        <option value="dur90">90</option>
+        <option value="dur120">120</option>
+      </select>      
+      <button type="submit">Begin ></button>
+    </form>
+  </div>
+</body>
+</html>
