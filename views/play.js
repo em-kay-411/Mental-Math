@@ -1,20 +1,23 @@
 const questionContainer = document.querySelector('#question-container');
 const durationElement = document.querySelector('.duration');
 const duration = parseInt(durationElement.textContent);
+const difficultyElement = document.querySelector('.difficulty');
+const difficulty = parseInt(difficultyElement.textContent);
 const timerElement = document.querySelector('.timer');
 const answerForm = document.getElementById('answer-form');
 const answerInput = document.getElementById('answer-input');
+const operators = ['+', '-', '*', '/'];
 let timeLeft = duration;
 let questionIndex = 0;
 let score = 0;
-const operators = ['+', '-', '*', '/'];
 
-function generateQuestions() {
+function generateQuestions(difficulty) {
     const questions = [];
     let i = 0;
     while (questions.length !== 500) {
-        const num1 = Math.floor(Math.random() * 100);
-        const num2 = Math.floor(Math.random() * 100);
+        console.log(difficulty)
+        const num1 = Math.floor(Math.random() * difficulty);
+        const num2 = Math.floor(Math.random() * difficulty);
         if ((num1 / num2) % 1 !== 0 || (num1 - num2) <= 0) {
             continue;
         }
@@ -75,7 +78,8 @@ function updateTimer() {
     }
 }
 
-questions = generateQuestions();
+
+questions = generateQuestions(difficulty);
 console.log(questions);
 displayQuestion(questions[0]);
 
