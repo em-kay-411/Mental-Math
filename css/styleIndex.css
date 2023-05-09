@@ -82,6 +82,10 @@ body {
     transform: translate(50%,60%);
 }
 
+h3{
+    font-size: 1.5rem;
+}
+
 .select{
     margin-bottom: 15%;
 }
