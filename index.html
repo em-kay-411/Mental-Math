@@ -2,28 +2,39 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculation Game</title>
   <link rel="stylesheet" href="/css/styleIndex.css">
 </head>
 <body>
+
+    <div class="fancy">
+      <div class="left">
+        <h1 class="fancy-content be">Be</h1>
+      </div>
+      <div class="right">
+        <h1 class="fancy-content"><span class="line line--1">quick,</span><span class="line line--2">genius,</span><span class="line line--3">insane.</span></h1>
+      </div>
+    </div>
+
+  
   <div class="container">
-    <h1>Game</h1>
     <h3>Choose your settings</h3>
-    <form action="/play" method="post">
-      <label for="difficulty">Difficulty</label>
-      <select name="difficulty" id="difficulty">
-        <option value="10">Easy</option>
-        <option value="100">Medium</option>
-        <option value="1000">Hard</option>
+    <form class="form" action="/play" method="post">
+      <label for="difficulty" class="lbl">Difficulty</label>
+      <select name="difficulty" class="select" id="difficulty">
+        <option value="10" class="opt">Easy</option>
+        <option value="100" class="opt">Medium</option>
+        <option value="1000" class="opt">Hard</option>
       </select>
-      <label for="duration">Duration</label>
-      <select name="duration" id="duration">
-        <option value="dur30">30</option>
-        <option value="dur60">60</option>
-        <option value="dur90">90</option>
-        <option value="dur120">120</option>
+      <label for="duration" class="lbl">Duration</label>
+      <select name="duration" class="select" id="duration">
+        <option value="dur30" class="opt">30</option>
+        <option value="dur60" class="opt">60</option>
+        <option value="dur90" class="opt">90</option>
+        <option value="dur120" class="opt">120</option>
       </select>      
-      <button type="submit">Begin ></button>
+      <button type="submit" class="btn">START GAME</button>
     </form>
   </div>
 </body>
