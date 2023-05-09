@@ -6,22 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/stylePlay.css">
 </head>
 
 <body>
-    <h2 class="timer"></h2>    
+    <div class="timer"></div>
     <div class="container">
-        <h1>Caluclation Training</h1>
         <p class="duration">
             <%= duration %>
         </p>
         <p class="difficulty">
             <%= difficulty %>
         </p>
-        <div id="question-container">            
-            <!-- Question will be added dynamically here -->
-        </div>
+        <div id="question-container"></div>
         <form id="answer-form">
             <input type="text" id="answer-input" placeholder="Enter your answer">
         </form>

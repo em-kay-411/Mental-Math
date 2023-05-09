@@ -7,20 +7,72 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
+.time{
+    color:rgb(255, 217, 93);
+    text-align: center;
+    font-size: 3rem;
+}
+
 .duration{
+    height: 0px;
     visibility: hidden;
 }
 
 .difficulty{
+    height: 0px;
     visibility: hidden;
 }
 
 .right{
-    font-size: 7rem;
+    font-size: 9rem;
     color:rgb(0, 255, 0);
 }
 
 .wrong{
-    font-size: 7rem;
+    font-size: 9rem;
     color:rgb(255, 0, 0)
+}
+
+#question-container{
+    transform: translate(0, -15%);
+    margin-top:0;
+    margin-bottom:1%;
+}
+
+.question{
+    font-size: 6.5rem;
+    color: rgb(255, 217, 93);
+    font-weight: bold;
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    background-color: rgb(46, 46, 45);
+    padding: 8px;
+    font-size: 2rem;
+    color: rgb(252, 236, 182);
+    margin-bottom: 2%;
+    border-radius: 10px;
+    border-color: rgb(46, 46, 45);
+    transform: translate(0, -200%);
+}
+
+input:focus{
+    background-color: rgb(46, 46, 45);
+    padding: 8px;
+    font-size: 2rem;
+    color: rgb(252, 236, 182);
+    margin-bottom: 2%;
+    border-radius: 10px;
+    border-color: rgb(255, 217, 93);
+}
+
+.evaluation{
+    margin: 0 0;
+    transform: translate(40%, -120%);
 }

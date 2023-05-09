@@ -41,7 +41,7 @@ function displayQuestion(question) {
         words[1] = '&#247;';
     }
     const displayQuestion = `${words[0]} ${words[1]} ${words[2]}`
-    questionContainer.innerHTML = `<h3>${displayQuestion}</h3>`;
+    questionContainer.innerHTML = `<h3 class="question">${displayQuestion}</h3>`;
     answerInput.focus();
 }
 
@@ -85,7 +85,7 @@ function displayScore() {
 
 function updateTimer(score) {
     const seconds = timeLeft;
-    timerElement.textContent = `${seconds}`;
+    timerElement.innerHTML = `<h2 class="time"><i class="fa fa-clock-o" style="font-size:48px;color:rgb(255, 217, 93);"></i> ${seconds}</h2>`;
     timeLeft--;
 
     if (timeLeft < 0) {
