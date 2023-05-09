@@ -26,10 +26,12 @@ app.post('/play', (req, res) => {
     res.render('play', {difficulty, duration});
 });
 
-app.get('/result/:score', (req, res) => {
+app.get('/result/:score/:correct/:incorrect', (req, res) => {
     const score = req.params.score;
+    const correct = req.params.correct;
+    const incorrect = req.params.incorrect;
 
-    res.render('result', {score});
+    res.render('result', {score, correct, incorrect});
 })
 
 // Start the server

@@ -11,6 +11,8 @@ const operators = ['+', '-', '*', '/'];
 let timeLeft = duration;
 let questionIndex = 0;
 let score = 0;
+let correct = 0;
+let incorrect = 0;
 
 function generateQuestions(difficulty) {
     const questions = [];
@@ -52,12 +54,14 @@ function checkAnswer(answer) {
     // console.log(correctAnswer);
     if (answer === correctAnswer) {
         score++;
+        correct++;
         evaluation.innerHTML = `<h1 class="right">&#x2713;</h1>`;
         setTimeout(() => {
             evaluation.innerHTML = ``;
         }, 300);
     } else {
         score = score - 2;
+        incorrect++;
         questionIndex--;
         evaluation.innerHTML = `<h1 class="wrong">&#10008;</h1>`;
         setTimeout(() => {
@@ -91,7 +95,7 @@ function updateTimer(score) {
     if (timeLeft < 0) {
         clearInterval(timerInterval);
         // redirect to the result page
-        window.location.href = `/result/${score}`;
+        window.location.href = `/result/${score}/${correct}/${incorrect}`;
     }
 }
 
