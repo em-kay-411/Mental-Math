@@ -6,6 +6,7 @@ const difficulty = parseInt(difficultyElement.textContent);
 const timerElement = document.querySelector('.timer');
 const answerForm = document.getElementById('answer-form');
 const answerInput = document.getElementById('answer-input');
+const evaluation = document.querySelector('.evaluation');
 const operators = ['+', '-', '*', '/'];
 let timeLeft = duration;
 let questionIndex = 0;
@@ -33,7 +34,14 @@ function generateQuestions(difficulty) {
 
 function displayQuestion(question) {
     console.log(question);
-    questionContainer.innerHTML = `<h3>${question}</h3>`;
+    const words = question.split(" ");
+    if(words[1] === '*'){
+        words[1] = '&#10005;';
+    } else if(words[1] === '/'){
+        words[1] = '&#247;';
+    }
+    const displayQuestion = `${words[0]} ${words[1]} ${words[2]}`
+    questionContainer.innerHTML = `<h3>${displayQuestion}</h3>`;
     answerInput.focus();
 }
 
@@ -44,8 +52,17 @@ function checkAnswer(answer) {
     // console.log(correctAnswer);
     if (answer === correctAnswer) {
         score++;
+        evaluation.innerHTML = `<h1 class="right">&#x2713;</h1>`;
+        setTimeout(() => {
+            evaluation.innerHTML = ``;
+        }, 300);
     } else {
         score = score - 2;
+        questionIndex--;
+        evaluation.innerHTML = `<h1 class="wrong">&#10008;</h1>`;
+        setTimeout(() => {
+            evaluation.innerHTML = ``;
+        }, 300);
     }
     console.log(`score - ${score}`);
     questionIndex++;
@@ -87,7 +104,10 @@ answerInput.addEventListener('input', (event) => {
     const answer = event.target.value.trim();
     const ans = eval(questions[questionIndex]).toString();
     if (answer.length === ans.length) {
-        checkAnswer(parseInt(answer));
+        setTimeout(() => {
+            checkAnswer(parseInt(answer))
+        }, 100);
+
     }
 });
 

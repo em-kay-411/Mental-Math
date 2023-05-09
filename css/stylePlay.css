@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Rajdhani&family=Ubuntu&display=swap');
+
+body {
+    overflow: hidden;
+    background-color: black;
+    color: white;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.duration{
+    visibility: hidden;
+}
+
+.difficulty{
+    visibility: hidden;
+}
+
+.right{
+    font-size: 7rem;
+    color:rgb(0, 255, 0);
+}
+
+.wrong{
+    font-size: 7rem;
+    color:rgb(255, 0, 0)
+}
