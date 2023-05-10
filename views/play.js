@@ -14,6 +14,18 @@ let score = 0;
 let correct = 0;
 let incorrect = 0;
 
+function addToAnswer(value) {
+    var answerInput = document.getElementById("answer-input");
+    answerInput.value += value;
+    const ans = eval(questions[questionIndex]).toString();
+    if (answerInput.value.length === ans.length) {
+        setTimeout(() => {
+            checkAnswer(parseInt(answerInput.value))
+        }, 100);
+
+    }
+}
+
 function generateQuestions(difficulty) {
     const questions = [];
     let i = 0;
@@ -104,16 +116,6 @@ questions = generateQuestions(difficulty);
 console.log(questions);
 displayQuestion(questions[0]);
 
-answerInput.addEventListener('input', (event) => {
-    const answer = event.target.value.trim();
-    const ans = eval(questions[questionIndex]).toString();
-    if (answer.length === ans.length) {
-        setTimeout(() => {
-            checkAnswer(parseInt(answer))
-        }, 100);
-
-    }
-});
 
 const timerInterval = setInterval(() => {
     updateTimer(score);
