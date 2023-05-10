@@ -194,6 +194,15 @@ select:focus {
     transition: 800ms ease all;
 }
 
+img {
+    position: absolute;
+    bottom: 0;
+    margin: 0 0;
+    scale: 0.06;
+    transform: translate(0, 440rem);
+    left: 16rem;
+}
+
 @media screen and (max-width: 400px) {
     .fancy {
         transform: translate(40%, 0);
