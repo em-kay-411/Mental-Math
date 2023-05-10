@@ -117,6 +117,22 @@ input:focus{
     .question{
         font-size: 4rem;
     }
+    input{
+        transform: translate(0, -250%);
+    }
+    .keypad{
+        transform: translate(0, -15%);
+    }
+    .container{
+        transform: translate(0, -10%);
+    }
+    @media screen and (max-height: 700px) {
+        
+        .time{
+            font-size: 2rem;
+        }
+    }
+    
 }
 
 @media screen and (min-width: 1200px) {
