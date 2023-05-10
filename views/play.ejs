@@ -21,7 +21,7 @@
         </p>
         <div id="question-container"></div>
         <form id="answer-form">
-            <input type="text" id="answer-input" placeholder="Enter your answer" readonly>
+            <input type="text" id="answer-input" placeholder="Answer" readonly>
         </form>
         <div class="keypad">
             <div class="key-row">
@@ -41,12 +41,13 @@
             </div>
             <div class="key-row">
                 <button class="key zero" onclick="addToAnswer('0')">0</button>
-                <button class="key" onclick="addToAnswer('x')">&#9587;</button>
+                <button class="key cross" onclick="addToAnswer('x')">&#9587;</button>
                 
             </div>
         </div>
+        <div class="evaluation"></div>
     </div>
-    <div class="evaluation"></div>
+    
     
     <footer style="text-align: center; position: fixed; bottom: 0; width:100%; color:rgb(255, 217, 93);">
         By EmKay 2023

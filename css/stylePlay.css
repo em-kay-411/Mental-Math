@@ -34,7 +34,7 @@ body {
 }
 
 #question-container{
-    transform: translate(0, -15%);
+    transform: translate(0, -35%);
     margin-top:0;
     margin-bottom:1%;
 }
@@ -54,40 +54,71 @@ body {
 input{
     background-color: rgb(46, 46, 45);
     padding: 8px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: rgb(252, 236, 182);
-    margin-bottom: 2%;
+    margin-bottom: 0%;
     border-radius: 10px;
     border-color: rgb(46, 46, 45);
-    transform: translate(0, -200%);
+    transform: translate(0, -400%);
 }
 
 input:focus{
     background-color: rgb(46, 46, 45);
     padding: 8px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: rgb(252, 236, 182);
-    margin-bottom: 2%;
+    margin-bottom: 0%;
     border-radius: 10px;
     border-color: rgb(255, 217, 93);
 }
 
 .evaluation{
     margin: 0 0;
-    transform: translate(40%, -120%);
+    transform: translate(0%, -60%);
 }
 
 .keypad {
+    width: 100%;
+    transform: translate(0%, -40%);
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .key-row{
+    width: 66%;
     display: flex;
     flex-direction: row;
 }
 
-.zero {
-    width:66%;
+.key {
+    border-style: none;
+    width: 100%;
+    border-radius: 20%;
+    font-size: 3rem;
+    margin: 5% 5%;
+    color: rgb(255, 217, 93);
+    background-color: rgb(46, 46, 45);;
 }
+
+.cross{
+    width: 37%;
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+@media screen and (max-width: 1200px) {
+    .evaluation{
+        z-index: 10;
+        margin: 0 0;
+        transform: translate(0%, -260%);
+    }    
+}
+
+@media screen and (min-width: 1200px) {
+    .keypad{
+        display: none;
+    }    
+}
+
