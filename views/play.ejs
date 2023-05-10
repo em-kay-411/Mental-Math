@@ -23,34 +23,35 @@
         <form id="answer-form">
             <input type="text" id="answer-input" placeholder="Enter your answer" readonly>
         </form>
+        <div class="keypad">
+            <div class="key-row">
+                <button class="key" onclick="addToAnswer('1')">1</button>
+                <button class="key" onclick="addToAnswer('2')">2</button>
+                <button class="key" onclick="addToAnswer('3')">3</button>
+            </div>
+            <div class="key-row">
+                <button class="key" onclick="addToAnswer('4')">4</button>
+                <button class="key" onclick="addToAnswer('5')">5</button>
+                <button class="key" onclick="addToAnswer('6')">6</button>
+            </div>
+            <div class="key-row">
+                <button class="key" onclick="addToAnswer('7')">7</button>
+                <button class="key" onclick="addToAnswer('8')">8</button>
+                <button class="key" onclick="addToAnswer('9')">9</button>
+            </div>
+            <div class="key-row">
+                <button class="key zero" onclick="addToAnswer('0')">0</button>
+                <button class="key" onclick="addToAnswer('x')">&#9587;</button>
+                
+            </div>
+        </div>
     </div>
     <div class="evaluation"></div>
-    <div class="keypad">
-        <div class="key-row">
-          <button class="key" onclick="addToAnswer('1')">1</button>
-          <button class="key" onclick="addToAnswer('2')">2</button>
-          <button class="key" onclick="addToAnswer('3')">3</button>
-        </div>
-        <div class="key-row">
-          <button class="key" onclick="addToAnswer('4')">4</button>
-          <button class="key" onclick="addToAnswer('5')">5</button>
-          <button class="key" onclick="addToAnswer('6')">6</button>
-        </div>
-        <div class="key-row">
-          <button class="key" onclick="addToAnswer('7')">7</button>
-          <button class="key" onclick="addToAnswer('8')">8</button>
-          <button class="key" onclick="addToAnswer('9')">9</button>
-        </div>
-        <div class="key-row">
-          <button class="key" onclick="addToAnswer('*')">*</button>
-          <button class="key" onclick="addToAnswer('0')">0</button>
-          <button class="key" onclick="addToAnswer('#')">#</button>
-        </div>
-      </div>
+    
     <footer style="text-align: center; position: fixed; bottom: 0; width:100%; color:rgb(255, 217, 93);">
         By EmKay 2023
     </footer>
-    <script src="play.js"></script>    
+    <script src="play.js"></script>
 </body>
 
 </html>

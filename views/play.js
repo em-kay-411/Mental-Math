@@ -16,7 +16,11 @@ let incorrect = 0;
 
 function addToAnswer(value) {
     var answerInput = document.getElementById("answer-input");
-    answerInput.value += value;
+    if(value === 'x'){
+        answerInput.value = answerInput.value.slice(0, -1);
+    } else {
+        answerInput.value += value;
+    }    
     const ans = eval(questions[questionIndex]).toString();
     if (answerInput.value.length === ans.length) {
         setTimeout(() => {
@@ -128,7 +132,11 @@ window.addEventListener("keydown", function (event) {
             }, 100);
 
         }
-    }
+    }else if (event.keyCode === 8) {
+        // Check if the pressed key is the backspace key
+        // Remove the last character from the answer input field
+        answerInput.value = answerInput.value.slice(0, -1);
+      }
 });
 
 
