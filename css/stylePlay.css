@@ -114,6 +114,9 @@ input:focus{
         margin: 0 0;
         transform: translate(0%, -260%);
     }    
+    .question{
+        font-size: 4rem;
+    }
 }
 
 @media screen and (min-width: 1200px) {
