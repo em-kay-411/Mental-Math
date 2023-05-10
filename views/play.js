@@ -49,9 +49,9 @@ function generateQuestions(difficulty) {
 function displayQuestion(question) {
     console.log(question);
     const words = question.split(" ");
-    if(words[1] === '*'){
+    if (words[1] === '*') {
         words[1] = '&#10005;';
-    } else if(words[1] === '/'){
+    } else if (words[1] === '/') {
         words[1] = '&#247;';
     }
     const displayQuestion = `${words[0]} ${words[1]} ${words[2]}`
@@ -115,6 +115,21 @@ function updateTimer(score) {
 questions = generateQuestions(difficulty);
 console.log(questions);
 displayQuestion(questions[0]);
+
+window.addEventListener("keydown", function (event) {
+    // Check if the pressed key is a numeric key (0-9)
+    if (event.keyCode >= 48 && event.keyCode <= 57) {
+        // Append the corresponding digit to the answer input field
+        answerInput.value += String.fromCharCode(event.keyCode);
+        const ans = eval(questions[questionIndex]).toString();
+        if (answerInput.value.length === ans.length) {
+            setTimeout(() => {
+                checkAnswer(parseInt(answerInput.value))
+            }, 100);
+
+        }
+    }
+});
 
 
 const timerInterval = setInterval(() => {
