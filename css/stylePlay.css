@@ -110,9 +110,10 @@ input:focus{
 
 @media screen and (max-width: 1200px) {
     .evaluation{
+        position: fixed;
         z-index: 10;
         margin: 0 0;
-        transform: translate(0%, -260%);
+        transform: translate(0%, 0%);
     }    
     .question{
         font-size: 4rem;
