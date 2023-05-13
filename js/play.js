@@ -7,6 +7,8 @@ const timerElement = document.querySelector('.timer');
 const answerForm = document.getElementById('answer-form');
 const answerInput = document.getElementById('answer-input');
 const evaluation = document.querySelector('.evaluation');
+const username = document.querySelector('.username').textContent;
+const highScore = parseInt(document.querySelector('.highScore').textContent);
 const operators = ['+', '-', '*', '/'];
 let timeLeft = duration;
 let questionIndex = 0;
@@ -111,7 +113,7 @@ function updateTimer(score) {
     if (timeLeft < 0) {
         clearInterval(timerInterval);
         // redirect to the result page
-        window.location.href = `/result/${score}/${correct}/${incorrect}`;
+        window.location.href = `/result/${username}/${highScore}/${score}/${correct}/${incorrect}`;
     }
 }
 

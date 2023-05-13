@@ -122,11 +122,15 @@
 </head>
 
 <body>
+    <h1 class="username"><%=username%></h1>
+    <h1 class="highScore"><%=highScore%></h1>
+    <div class="newRecord"></div>
     <div class="container">
+        <div class="record">New Record</div>
         <div class="your-score">
             <h2 class="score"> Total Score
             </h2>
-            <h1>
+            <h1 class="currentScore">
                 <%=score%>
             </h1>
         </div>
@@ -154,6 +158,16 @@
     <footer style="text-align: center; position: fixed; bottom: 0; width:100%;">
         By EmKay 2023
     </footer>
+
+    <script>
+        const highScore = parseInt(document.querySelector('.highScore').textContent);
+        const currentScore = parseInt(document.querySelector('.currentScore').textContent);
+        const notification = document.querySelector('.newRecord');
+
+        if(currentScore > highScore){
+            notification.innerHTML = `Congratulations !! NEW RECORD`
+        }
+    </script>
 
 </body>
 

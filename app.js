@@ -103,6 +103,7 @@ app.post('/users', async (req, res) => {
 
 // Route handler for the index page
 app.get('/settings/:username/:highScore', (req, res) => {
+
     const username = req.params.username;
     const highScore = req.params.highScore;
     res.render('settings', { username, highScore });
@@ -110,21 +111,36 @@ app.get('/settings/:username/:highScore', (req, res) => {
 });
 
 // Route handler for the form submission
-app.post('/play/:username', (req, res) => {
+app.post('/play/:username', async (req, res) => {
     let username = req.params.username;
+
+    const user = await User.findOne({username});
+    const highScore = user.highScore;
     let { difficulty, duration } = req.body;
     duration = parseInt(duration.slice(3)) // Extract the duration value and convert to number
 
-    res.render('play', { difficulty, duration, username });
+    res.render('play', { difficulty, duration, username, highScore });
 });
 
-app.get('/result/:score/:correct/:incorrect', (req, res) => {
-    const score = req.params.score;
-    const correct = req.params.correct;
-    const incorrect = req.params.incorrect;
+app.get('/result/:username/:highScore/:score/:correct/:incorrect', async (req, res) => {
+    
+    const { username, highScore, score, correct, incorrect } = req.params;
 
-    res.render('result', { score, correct, incorrect });
-})
+    const displayScore = Math.max(score, highScore);
+
+    try {        
+        const user = await User.findOneAndUpdate(
+            { username },
+            { highScore: displayScore },
+            { new: true } 
+        );
+       
+        res.render('result', { score, correct, incorrect, username, highScore: user.highScore, displayScore });
+    } catch (error) {
+        console.error('Error updating user', error);
+        res.status(500).json({ error: 'Error updating user' });
+    }
+});
 
 // Start the server
 app.listen(PORT, () => {
