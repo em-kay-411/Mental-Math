@@ -18,13 +18,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // ROute handler for login page
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/login.html');
+    res.sendFile(__dirname + '/views/index.html');
+
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/views/signup.html');
 
 });
 
 // Route handler for the index page
-app.get('/index', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+app.get('/settings', (req, res) => {
+    res.sendFile(__dirname + '/views/settings.html');
 });
 
 // Route handler for the form submission
