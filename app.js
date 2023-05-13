@@ -3,6 +3,23 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5500;
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const User = require('./js/user.js')
+
+
+mongoose.connect('mongodb://localhost:27017/crunch', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(error => {
+        console.error('Error connecting to MongoDB', error);
+    });
+
+app.use(express.json());  
+
 
 // Use EJS as the view engine
 app.set('view engine', 'ejs');
@@ -26,6 +43,27 @@ app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/views/signup.html');
 
 });
+
+app.post('/users', async (req, res) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(req.body.password, salt);
+        
+        const newUser = new User({
+            email: req.body.email,
+            username: req.body.username,
+            password: hash
+        });
+
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (error) {
+        console.error('Error creating user', error);
+        res.status(500).json({ error: 'Error creating user' });
+    }
+});
+
+
 
 // Route handler for the index page
 app.get('/settings', (req, res) => {
