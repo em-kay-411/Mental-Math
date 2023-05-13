@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('./js/user.js');
 const BloomFilter = require('./js/bloomFilter.js');
+const passport = require('passport');
+const session = require('express-session');
+const passportConfig = require('./js/passportConfig');
+const fs = require('fs');
 
 const bloomFilter = new BloomFilter();
 
@@ -22,6 +26,18 @@ mongoose.connect('mongodb://localhost:27017/crunch', {
 
 app.use(express.json());
 
+// Cookie middleware
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passportConfig(passport);
+
 
 // Use EJS as the view engine
 app.set('view engine', 'ejs');
@@ -29,7 +45,7 @@ app.set('view engine', 'ejs');
 // Serve static files from the public directory
 app.use(express.static(__dirname));
 app.use(express.static('./views'));
-app.use(express.static('./css'));
+app.use(express.static('css'));
 app.use(express.static('./favicon'));
 
 // Use body-parser middleware to parse form data
@@ -38,12 +54,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // ROute handler for login page
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
-
 });
 
 app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/views/signup.html');
 
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/settings',
+    failureRedirect: '/'
+}));
+
+app.get('/settings', (req, res) => {
+    const username = req.user.username;
+    const highScore = req.user.highScore;
+    res.redirect(`/settings/${username}/${highScore}`);
 });
 
 app.post('/users', async (req, res) => {
@@ -76,8 +102,10 @@ app.post('/users', async (req, res) => {
 
 
 // Route handler for the index page
-app.get('/settings', (req, res) => {
-    res.sendFile(__dirname + '/views/settings.html');
+app.get('/settings/:username/:highScore', (req, res) => {
+    const username = req.params.username;
+    res.render('settings', { username });
+    // res.sendFile(__dirname + '/views/settings.html');
 });
 
 // Route handler for the form submission
