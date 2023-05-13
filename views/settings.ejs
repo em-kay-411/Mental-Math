@@ -215,6 +215,31 @@
       left: 16rem;
     }
 
+    .navbar{
+      margin-left: 2%;
+      width: 100%;
+      display: inline;
+      position: fixed;
+      font-size: 1rem;      
+    }
+
+    .logout{
+      border-style:ridge;
+      border-radius: 10px;
+      background-color: black;
+      color: rgb(255, 217, 93);
+      border-color: rgb(255, 217, 93);
+      width:70px;
+      height:30px;
+      margin: 0 2%;
+    }
+
+    .logout:hover{
+      cursor: pointer;
+      background-color: rgb(255, 217, 93);
+      color: black
+    }
+
     @media screen and (max-width: 400px) {
       .fancy {
         transform: translate(40%, 0);
@@ -266,9 +291,9 @@
 
 <body>
 
-  <h1>
-    <%= username %>
-    <%= highScore %>
+  <h1 class="navbar">
+    Hello, <%= username %>
+    <button class="logout" onclick="window.location.href = '/logout'">Logout</button>
   </h1>
 
   <div class="fancy">

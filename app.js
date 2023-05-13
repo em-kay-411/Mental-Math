@@ -9,10 +9,10 @@ const BloomFilter = require('./js/bloomFilter.js');
 const passport = require('passport');
 const session = require('express-session');
 const passportConfig = require('./js/passportConfig');
-const fs = require('fs');
 
 const bloomFilter = new BloomFilter();
 
+// Connect to mongoose server
 mongoose.connect('mongodb://localhost:27017/crunch', {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -125,7 +125,7 @@ app.post('/play/:username', isAuthenticated, async (req, res) => {
     const user = await User.findOne({ username });
     const highScore = user.highScore;
     let { difficulty, duration } = req.body;
-    duration = parseInt(duration.slice(3)) // Extract the duration value and convert to number
+    duration = parseInt(duration.slice(3)) 
 
     res.render('play', { difficulty, duration, username, highScore });
 });
