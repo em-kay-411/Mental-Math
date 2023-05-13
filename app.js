@@ -104,16 +104,18 @@ app.post('/users', async (req, res) => {
 // Route handler for the index page
 app.get('/settings/:username/:highScore', (req, res) => {
     const username = req.params.username;
-    res.render('settings', { username });
+    const highScore = req.params.highScore;
+    res.render('settings', { username, highScore });
     // res.sendFile(__dirname + '/views/settings.html');
 });
 
 // Route handler for the form submission
-app.post('/play', (req, res) => {
+app.post('/play/:username', (req, res) => {
+    let username = req.params.username;
     let { difficulty, duration } = req.body;
     duration = parseInt(duration.slice(3)) // Extract the duration value and convert to number
 
-    res.render('play', { difficulty, duration });
+    res.render('play', { difficulty, duration, username });
 });
 
 app.get('/result/:score/:correct/:incorrect', (req, res) => {

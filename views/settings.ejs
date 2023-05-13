@@ -268,6 +268,7 @@
 
   <h1>
     <%= username %>
+    <%= highScore %>
   </h1>
 
   <div class="fancy">
@@ -283,7 +284,7 @@
 
   <div class="container">
     <h3>Choose your settings</h3>
-    <form class="form" action="/play" method="post">
+    <form class="form" action="/play/<%= username %>" method="post">
       <label for="difficulty" class="lbl">Difficulty</label>
       <select name="difficulty" class="select" id="difficulty">
         <option value="10" class="opt">Easy</option>
