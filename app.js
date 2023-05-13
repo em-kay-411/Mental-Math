@@ -51,6 +51,14 @@ app.use(express.static('./favicon'));
 // Use body-parser middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Middleware for authentication
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
+
 // ROute handler for login page
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
@@ -66,13 +74,13 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/'
 }));
 
-app.get('/settings', (req, res) => {
+app.get('/settings', isAuthenticated, (req, res) => {
     const username = req.user.username;
     const highScore = req.user.highScore;
     res.redirect(`/settings/${username}/${highScore}`);
 });
 
-app.post('/users', async (req, res) => {
+app.post('/users', isAuthenticated, async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
@@ -102,7 +110,7 @@ app.post('/users', async (req, res) => {
 
 
 // Route handler for the index page
-app.get('/settings/:username/:highScore', (req, res) => {
+app.get('/settings/:username/:highScore', isAuthenticated, (req, res) => {
 
     const username = req.params.username;
     const highScore = req.params.highScore;
@@ -111,7 +119,7 @@ app.get('/settings/:username/:highScore', (req, res) => {
 });
 
 // Route handler for the form submission
-app.post('/play/:username', async (req, res) => {
+app.post('/play/:username', isAuthenticated, async (req, res) => {
     let username = req.params.username;
 
     const user = await User.findOne({ username });
@@ -122,7 +130,7 @@ app.post('/play/:username', async (req, res) => {
     res.render('play', { difficulty, duration, username, highScore });
 });
 
-app.get('/result/:username/:highScore/:score/:correct/:incorrect', async (req, res) => {
+app.get('/result/:username/:highScore/:score/:correct/:incorrect', isAuthenticated, async (req, res) => {
 
     const { username, highScore, score, correct, incorrect } = req.params;
 
@@ -142,7 +150,7 @@ app.get('/result/:username/:highScore/:score/:correct/:incorrect', async (req, r
     }
 });
 
-app.get('/logout', (req, res) => {
+app.get('/logout', isAuthenticated, (req, res) => {
     req.logout(function(err) {
       if (err) { return next(err); }
       res.redirect('/');
