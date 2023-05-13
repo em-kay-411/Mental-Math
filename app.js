@@ -45,8 +45,9 @@ app.set('view engine', 'ejs');
 // Serve static files from the public directory
 app.use(express.static(__dirname));
 app.use(express.static('./views'));
-app.use(express.static('css'));
+app.use(express.static('./css'));
 app.use(express.static('./favicon'));
+app.use(express.static('./js'));
 
 // Use body-parser middleware to parse form data
 app.use(bodyParser.urlencoded({ extended: false }));
