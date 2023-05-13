@@ -94,6 +94,10 @@ button:focus {
     outline: none;
 }
 
+.feedback{
+    color: rgb(255, 217, 93);
+}
+
 button:hover {
     color: rgb(255, 217, 93);
     background: transparent;

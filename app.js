@@ -4,8 +4,10 @@ const app = express();
 const PORT = process.env.PORT || 5500;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const User = require('./js/user.js')
+const User = require('./js/user.js');
+const BloomFilter = require('./js/bloomFilter.js');
 
+const bloomFilter = new BloomFilter();
 
 mongoose.connect('mongodb://localhost:27017/crunch', {
     useNewUrlParser: true,
@@ -18,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/crunch', {
         console.error('Error connecting to MongoDB', error);
     });
 
-app.use(express.json());  
+app.use(express.json());
 
 
 // Use EJS as the view engine
@@ -48,11 +50,19 @@ app.post('/users', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
-        
+        const username = req.body.username;
+        if (bloomFilter.has(username)) {
+            return res.status(400).json({ error: 'Username already taken' });
+        }
+
+        // add the username to the Bloom filter
+        bloomFilter.add(username);
+
         const newUser = new User({
             email: req.body.email,
             username: req.body.username,
-            password: hash
+            password: hash,
+            highScore: 0,
         });
 
         await newUser.save();
