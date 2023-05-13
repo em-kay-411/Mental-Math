@@ -114,7 +114,7 @@ app.get('/settings/:username/:highScore', (req, res) => {
 app.post('/play/:username', async (req, res) => {
     let username = req.params.username;
 
-    const user = await User.findOne({username});
+    const user = await User.findOne({ username });
     const highScore = user.highScore;
     let { difficulty, duration } = req.body;
     duration = parseInt(duration.slice(3)) // Extract the duration value and convert to number
@@ -123,24 +123,31 @@ app.post('/play/:username', async (req, res) => {
 });
 
 app.get('/result/:username/:highScore/:score/:correct/:incorrect', async (req, res) => {
-    
+
     const { username, highScore, score, correct, incorrect } = req.params;
 
     const displayScore = Math.max(score, highScore);
 
-    try {        
+    try {
         const user = await User.findOneAndUpdate(
             { username },
             { highScore: displayScore },
-            { new: true } 
+            { new: true }
         );
-       
+
         res.render('result', { score, correct, incorrect, username, highScore: user.highScore, displayScore });
     } catch (error) {
         console.error('Error updating user', error);
         res.status(500).json({ error: 'Error updating user' });
     }
 });
+
+app.get('/logout', (req, res) => {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
 
 // Start the server
 app.listen(PORT, () => {

@@ -124,9 +124,8 @@
 <body>
     <h1 class="username"><%=username%></h1>
     <h1 class="highScore"><%=highScore%></h1>
-    <div class="newRecord"></div>
     <div class="container">
-        <div class="record">New Record</div>
+        <div class="record"></div>
         <div class="your-score">
             <h2 class="score"> Total Score
             </h2>
@@ -162,10 +161,10 @@
     <script>
         const highScore = parseInt(document.querySelector('.highScore').textContent);
         const currentScore = parseInt(document.querySelector('.currentScore').textContent);
-        const notification = document.querySelector('.newRecord');
+        const notification = document.querySelector('.record');
 
         if(currentScore > highScore){
-            notification.innerHTML = `Congratulations !! NEW RECORD`
+            notification.innerHTML = `Congratulations !!NEW RECORD`
         }
     </script>
 
