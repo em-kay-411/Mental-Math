@@ -136,15 +136,14 @@ app.get('/result/:username/:highScore/:score/:correct/:incorrect', isAuthenticat
     const { username, highScore, score, correct, incorrect } = req.params;
 
     const displayScore = Math.max(score, highScore);
-
+    
     try {
         const user = await User.findOneAndUpdate(
             { username },
             { highScore: displayScore },
             { new: true }
         );
-
-        res.render('result', { score, correct, incorrect, username, highScore: user.highScore, displayScore });
+        res.render('result', { score, correct, incorrect, username, highScore, displayScore });
     } catch (error) {
         console.error('Error updating user', error);
         res.status(500).json({ error: 'Error updating user' });

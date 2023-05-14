@@ -7,7 +7,8 @@ const timerElement = document.querySelector('.timer');
 const answerForm = document.getElementById('answer-form');
 const answerInput = document.getElementById('answer-input');
 const evaluation = document.querySelector('.evaluation');
-const username = document.querySelector('.username').textContent;
+const usernameElement = document.querySelector('.username');
+const username = usernameElement.childNodes[0].textContent.trim();
 const highScore = parseInt(document.querySelector('.highScore').textContent);
 const operators = ['+', '-', '*', '/'];
 let timeLeft = duration;
@@ -15,7 +16,8 @@ let questionIndex = 0;
 let score = 0;
 let correct = 0;
 let incorrect = 0;
-
+console.log(username);
+console.log(highScore);
 function addToAnswer(value) {
     var answerInput = document.getElementById("answer-input");
     if(value === 'x'){

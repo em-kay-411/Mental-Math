@@ -118,12 +118,42 @@
             width: 100%;
             transition: 800ms ease all;
         }
+
+        .navbar {
+            margin-left: 2%;
+            width: 100%;
+            display: inline;
+            position: fixed;
+            font-size: 1rem;
+        }
+
+        .logout {
+            border-style: ridge;
+            border-radius: 10px;
+            background-color: black;
+            color: rgb(255, 217, 93);
+            border-color: rgb(255, 217, 93);
+            width: 70px;
+            height: 30px;
+            margin: 0 2%;
+        }
+
+        .logout:hover {
+            cursor: pointer;
+            background-color: rgb(255, 217, 93);
+            color: black
+        }
     </style>
 </head>
 
 <body>
-    <h1 class="username"><%=username%></h1>
-    <h1 class="highScore"><%=highScore%></h1>
+    <h1 class="navbar">
+        <%= username %>
+            <button class="logout" onclick="window.location.href = '/logout'">Logout</button>
+    </h1>
+    <h1 class="highScore">
+        <%=highScore%>
+    </h1>
     <div class="container">
         <div class="record"></div>
         <div class="your-score">
@@ -163,7 +193,7 @@
         const currentScore = parseInt(document.querySelector('.currentScore').textContent);
         const notification = document.querySelector('.record');
 
-        if(currentScore > highScore){
+        if (currentScore > highScore) {
             notification.innerHTML = `Congratulations !!NEW RECORD`
         }
     </script>
