@@ -46,7 +46,7 @@
             margin: 0% 5%;
         }
 
-        h1 {
+        .container h1 {
             text-align: center;
         }
 
@@ -143,6 +143,17 @@
             background-color: rgb(255, 217, 93);
             color: black
         }
+
+        .high{
+            text-align: center;
+        }
+
+        .highScore{
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bolder;
+            color:rgb(252, 236, 182)
+        }
     </style>
 </head>
 
@@ -151,6 +162,9 @@
         <%= username %>
             <button class="logout" onclick="window.location.href = '/logout'">Logout</button>
     </h1>
+    <h2 class="high">
+        High Score
+    </h2>
     <h1 class="highScore">
         <%=highScore%>
     </h1>
