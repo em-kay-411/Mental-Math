@@ -80,11 +80,17 @@ app.post('/sendOTP', async (req, res) => {
     const subject = req.body.subject;
     const message = req.body.message;
     const user = await User.findOne({ email })
+    console.log(user);
     if(user){
-        sendMail(email, subject, message);
+        await sendMail(email, subject, message);
+        res.redirect(`/otpVerification/${email}`);
     } else{
         res.status(500).json({error: 'Error occurred while sending mail'})
     }
+})
+
+app.get('/otpVerfication/:email', async (req, res) => {
+    
 })
 
 app.post('/login', passport.authenticate('local', {
@@ -98,7 +104,7 @@ app.get('/settings', isAuthenticated, (req, res) => {
     res.redirect(`/settings/${username}/${highScore}`);
 });
 
-app.post('/users', isAuthenticated, async (req, res) => {
+app.post('/users', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
