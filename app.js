@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5500;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -8,6 +9,7 @@ const User = require('./js/user.js');
 const BloomFilter = require('./js/bloomFilter.js');
 const passport = require('passport');
 const session = require('express-session');
+const sendMail = require('./js/sendMail');
 const passportConfig = require('./js/passportConfig');
 
 const bloomFilter = new BloomFilter();
@@ -67,8 +69,23 @@ app.get('/', (req, res) => {
 
 app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/views/signup.html');
-
 });
+
+app.get('/forgotPassword', async (req, res) => {
+    res.sendFile(__dirname + '/views/forgotPassword.html')
+});
+
+app.post('/sendOTP', async (req, res) => {
+    const email = req.body.email;
+    const subject = req.body.subject;
+    const message = req.body.message;
+    const user = await User.findOne({ email })
+    if(user){
+        sendMail(email, subject, message);
+    } else{
+        res.status(500).json({error: 'Error occurred while sending mail'})
+    }
+})
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/settings',
@@ -107,7 +124,6 @@ app.post('/users', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Error creating user' });
     }
 });
-
 
 
 // Route handler for the index page
