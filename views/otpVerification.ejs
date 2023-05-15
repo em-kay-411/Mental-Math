@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,35 +9,37 @@
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
     <link rel="manifest" href="../favicon/site.webmanifest">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/styleIndex.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="stylesheet" href="../css/styleIndex.css">
+    <style>
+        .email{
+            display:none;
+        }
+        button {
+            margin-top: 10%;
+        }
+    </style>
 </head>
 
 <body>
     <img src="../logo.png" alt="">
+    <div class="email"><%=email%></div>
     <h2>Crunch</h2>
-    <div class="container" id="container">        
+    <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form action="#" class="sign-in-form">
-                <h1>Sign in</h1>
-                <span>Use your existing account</span>
-                <input type="text" name="username" placeholder="Username" />
-                <input type="password" name="password" placeholder="Password" />
-                <a href="/forgotPassword">Forgot your password?</a>
-                <button>Sign In</button>
-                <a href="/signup">New to Crunch? Sign Up</a>
+            <form class="resetForm" >
+                <h1>Reset Password</h1>
+                <input type="password" name="otp" placeholder="OTP" />
+                <input type="password" name="password" placeholder="New Password" />
+                <button>Reset Password</button>
             </form>
         </div>
     </div>
-
     <div class="feedback"></div>
-
     <footer
         style="text-align: center; position: fixed; bottom: 0; width:100%; color:rgb(255, 217, 93); align-items: center;">
         By EmKay 2023
     </footer>
-
-    <script src="../js/index.js"></script>
+    <script src="../js/otpVerification.js"></script>
 </body>
 
 </html>

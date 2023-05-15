@@ -81,16 +81,45 @@ app.post('/sendOTP', async (req, res) => {
     const message = req.body.message;
     const user = await User.findOne({ email })
     console.log(user);
-    if(user){
-        await sendMail(email, subject, message);
+    if (user) {
+        await sendMail(email, subject, message)
         res.redirect(`/otpVerification/${email}`);
-    } else{
-        res.status(500).json({error: 'Error occurred while sending mail'})
+
+    } else {
+        res.status(500).json({ error: 'Error occurred while sending mail' })
     }
 })
 
-app.get('/otpVerfication/:email', async (req, res) => {
-    
+app.get('/otpVerification/:email', async (req, res) => {
+    const email = req.params.email;
+    res.render('otpVerification', { email });
+});
+
+app.post('/resetPassword', async (req, res) => {
+    const email = req.body.email;
+    const otp = req.body.otp;
+    const password = req.body.password;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            res.status(404).send('User not found');
+            return;
+        }
+
+        if (otp === user.password) {
+            const salt = await bcrypt.genSalt(10);
+            const hash = await bcrypt.hash(password, salt);
+            user.password = hash;
+            await user.save();
+            res.status(200).send('Password updated successfully');
+        } else {
+            res.status(400).send('Wrong OTP entered');
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+    }
 })
 
 app.post('/login', passport.authenticate('local', {
@@ -148,7 +177,7 @@ app.post('/play/:username', isAuthenticated, async (req, res) => {
     const user = await User.findOne({ username });
     const highScore = user.highScore;
     let { difficulty, duration } = req.body;
-    duration = parseInt(duration.slice(3)) 
+    duration = parseInt(duration.slice(3))
 
     res.render('play', { difficulty, duration, username, highScore });
 });
@@ -158,7 +187,7 @@ app.get('/result/:username/:highScore/:score/:correct/:incorrect', isAuthenticat
     const { username, highScore, score, correct, incorrect } = req.params;
 
     const displayScore = Math.max(score, highScore);
-    
+
     try {
         const user = await User.findOneAndUpdate(
             { username },
@@ -173,11 +202,11 @@ app.get('/result/:username/:highScore/:score/:correct/:incorrect', isAuthenticat
 });
 
 app.get('/logout', isAuthenticated, (req, res) => {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/');
     });
-  });
+});
 
 // Start the server
 app.listen(PORT, () => {

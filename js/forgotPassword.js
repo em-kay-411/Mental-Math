@@ -24,6 +24,7 @@ OTPbutton.addEventListener('click', (event) => {
     .then(response => {
       if (response.ok) {
         console.log('OTP sent to the email successfully');  
+        window.location.href = `/otpVerification/${email}`;
       } else {
         console.log('Error sending OTP email');        
       }
