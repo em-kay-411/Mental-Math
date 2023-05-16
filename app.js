@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const nodemailer = require('nodemailer');
 const PORT = process.env.PORT || 5500;
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

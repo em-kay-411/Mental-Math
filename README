@@ -1,0 +1,55 @@
+Technologies/Frameworks/Libraries Used - 
+1. NodeJS
+2. HTML/CSS 
+3. Embedded JS
+4. Express
+5. bcrypt
+6. MongoDB
+7. PassportJS
+8. Bloom filter
+
+
+app.js - 
+
+1. `app.use(session({ ... }))`: This line sets up the session middleware. Sessions are a way to store user-specific data on the server between HTTP requests. The `session` function is invoked with an object that contains configuration options for the session middleware. Here are the options used:
+
+   - `secret`: This is a required option and represents the secret used to sign the session ID cookie. It should be a random string and is used to encrypt the session data.
+
+   - `resave`: This option determines whether the session should be saved back to the session store, even if it wasn't modified during the request. In this case, it's set to `false`, which means the session will only be saved if it has been modified.
+
+   - `saveUninitialized`: This option determines whether a session should be saved to the store if it's new but hasn't been modified. Setting it to `false` means that only modified sessions will be saved.
+
+2. `app.use(passport.initialize())`: This line initializes the Passport middleware. Passport is an authentication library for Node.js, and `passport.initialize()` initializes the authentication system. It adds authentication-related properties and methods to the `req` object.
+
+3. `app.use(passport.session())`: This line adds the Passport session middleware. It enables persistent login sessions by serializing and deserializing user instances to and from the session. This allows Passport to maintain user authentication state across requests.
+
+4. `isAuthenticated`: It is a function provided by the PassportJS middleware.
+
+5. `passportConfig(passport)`: 'passport' object is passed to the passportConfig function that configures the passport.
+
+6. `app.get('/')`: HTTP GET Route handler for the Sign In page
+
+7. `app.get('/signup')`: HTTP GET Route handler for the Sign Up page that creates a new user
+
+8. `app.get('/forgotPassword')`: HTTP GET route handler for the forgot password page.
+
+9.  `app.post('/sendOTP')`: HTTP POST route handler for sending OTP to the specified mail.
+
+10. `app.get('/otpVerification/:email')`: HTTP GET route handler that uses the email to render the otpVerification EJS page.
+
+11. `app.post('/resetPassword')`: HTTP POST route handler that triggers on submitting the OTP and new password. It saves the new password.
+
+12. `app.post('/login')`: HTTP POST route handler for submission of login page. It redirects to settings page on login success and redirects to itself on failure.
+
+13. `app.get('/settings')`: HTTP GET route to get to the settings page.
+
+14. `app.post('/users')`: HTTP POST route handler that triggers on submission of the sign up form. It creates the user and saves the password in the database.
+
+15. `app.get('/settings/:username/:highScore')`: Triggered by the settings route handler that directs to settings with the display of the username and highScore.
+
+16. `app.post('/play/:username')`: Once authenticated, it starts the gameplay according to the desired difficulty.
+
+17. `app.get('/result/:username/:highScore/:score/:correct/:incorrect')`: HTTP GET route handler to display the result at the end of the gameplay.
+
+18. `app.get('/logout')` HTTP GET route handler to log the user out of the game.
+
