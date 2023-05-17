@@ -14,7 +14,7 @@ const passportConfig = require('./js/passportConfig');
 const bloomFilter = new BloomFilter();
 
 // Connect to mongoose server
-mongoose.connect('mongodb://localhost:27017/crunch', {
+mongoose.connect('mongodb://mongo:27017/crunch', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
