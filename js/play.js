@@ -115,7 +115,7 @@ function updateTimer(score) {
     if (timeLeft < 0) {
         clearInterval(timerInterval);
         // redirect to the result page
-        window.location.href = `/result/${username}/${highScore}/${score}/${correct}/${incorrect}`;
+        window.location.href = `/result/${highScore}/${score}/${correct}/${incorrect}`;
     }
 }
 

@@ -14,7 +14,7 @@ const passportConfig = require('./js/passportConfig');
 const bloomFilter = new BloomFilter();
 
 // Connect to mongoose server
-mongoose.connect('mongodb://mongo:27017/crunch', {
+mongoose.connect('mongodb://localhost:27017/crunch', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -126,10 +126,11 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/'
 }));
 
+// Route handler for the index page
 app.get('/settings', isAuthenticated, (req, res) => {
-    const username = req.user.username;
-    const highScore = req.user.highScore;
-    res.redirect(`/settings/${username}/${highScore}`);
+    let username = req.user.username;
+    let highScore = req.user.highScore;
+    res.render('settings', { username, highScore });
 });
 
 app.post('/users', async (req, res) => {
@@ -160,40 +161,32 @@ app.post('/users', async (req, res) => {
 });
 
 
-// Route handler for the index page
-app.get('/settings/:username/:highScore', isAuthenticated, (req, res) => {
-
-    const username = req.params.username;
-    const highScore = req.params.highScore;
-    res.render('settings', { username, highScore });
-    // res.sendFile(__dirname + '/views/settings.html');
-});
-
 // Route handler for the form submission
-app.post('/play/:username', isAuthenticated, async (req, res) => {
-    let username = req.params.username;
-
-    const user = await User.findOne({ username });
-    const highScore = user.highScore;
+app.post('/play', isAuthenticated, async (req, res) => {
+    let username = req.user.username;
+    const highScore = req.user.highScore;
     let { difficulty, duration } = req.body;
     duration = parseInt(duration.slice(3))
 
     res.render('play', { difficulty, duration, username, highScore });
 });
 
-app.get('/result/:username/:highScore/:score/:correct/:incorrect', isAuthenticated, async (req, res) => {
-
-    const { username, highScore, score, correct, incorrect } = req.params;
+app.get('/result/:highScore/:score/:correct/:incorrect', isAuthenticated, async (req, res) => {
+    let username = req.user.username;
+    const { highScore, score, correct, incorrect } = req.params;
 
     const displayScore = Math.max(score, highScore);
 
     try {
-        const user = await User.findOneAndUpdate(
+        await User.findOneAndUpdate(
             { username },
             { highScore: displayScore },
             { new: true }
         );
-        res.render('result', { score, correct, incorrect, username, highScore, displayScore });
+        if(highScore <= displayScore){
+            highScore = displayScore;
+        }   
+        res.render('result', { score, correct, incorrect, username, highScore, displayScore });  
     } catch (error) {
         console.error('Error updating user', error);
         res.status(500).json({ error: 'Error updating user' });
